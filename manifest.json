@@ -1,0 +1,17 @@
+{
+    "framework": "ubuntu-sdk-13.10",
+    "maintainer": "Bram Geelensudo apt-get install openssh-client",
+    "name": "com.ubuntu.developer.geelen-bram.GitHub",
+    "security": {
+        "profiles": {
+            "GitHub": {
+                "policy_groups": [
+                    "networking"
+                ],
+                "policy_version": 1
+            }
+        }
+    },
+    "title": "My Cool App",
+    "version": "0.1"
+}
