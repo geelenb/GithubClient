@@ -32,7 +32,8 @@ Rectangle {
             font.bold: true
             font.pixelSize: parent.height / 7
             style: Text.Outline
-            styleColor: "white"
+            color: "white"
+            styleColor: "black"
 
             text: (rightRectangle.showing) ? "" : login
         }
@@ -73,7 +74,7 @@ Rectangle {
 
             font.bold: false
             font.pixelSize: parent.height / 6
-            text: (!rightRectangle.showing) ? "showing false" : (thumbRect.name !== null) ? login : "login comes here"
+            text: (!rightRectangle.showing) ? "" : (thumbRect.name !== null) ? login : "login comes here"
 //            text: thumbRect.login
         }
     }

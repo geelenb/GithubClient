@@ -7,7 +7,6 @@ Page {
     property string login
     property var userObject
 
-
     Component.onCompleted: {
         var xhr = new XMLHttpRequest;
         xhr.open("GET", "https://api.github.com/users/" + login);
@@ -76,7 +75,6 @@ Page {
                 text: visible ? userObject.blog : ""
                 visible: userObject !== undefined && userObject.blog !== null
 
-                // TODO add onClicked here, to view webpage (make a page element WebPage)
                 progression: true
                 onClicked: pageStack.push(webPage, {"url": userObject.blog})
             }
@@ -114,8 +112,8 @@ Page {
                 text: userObject !== undefined ? i18n.tr("following ") + userObject.following + i18n.tr(" users") : ""
                 visible: userObject !== undefined && userObject.following !== 0
 
-                // TODO add onClicked here, to view following
                 progression: true
+                onClicked: pageStack.push(userListPage, {"url": "https://api.github.com/users/" + login + "/following"})
             }
 
             ListItem.Standard {
@@ -124,8 +122,8 @@ Page {
                 text: visible ? userObject.followers + i18n.tr(" followers") : ""
                 visible: userObject !== undefined && userObject.followers !== 0
 
-    //             TODO add onClicked here, to view following
                 progression: true
+                onClicked: pageStack.push(userListPage, {"url": userObject.followers_url})
             }
 
             ListItem.Standard {

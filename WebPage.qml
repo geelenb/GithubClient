@@ -10,7 +10,7 @@ Page {
 
     WebView {
         anchors.fill: parent
-        url: webPage.url
+        url: (webPage.url.substring(0, 4) === "http" ? "" : "http://") + webPage.url
     }
 
 

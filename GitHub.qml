@@ -29,6 +29,11 @@ MainView {
             visible: false
         }
 
+        UserListPage {
+            id: userListPage
+            visible: false
+        }
+
         Component.onCompleted: pageStack.push(userPage)
     }
 }
