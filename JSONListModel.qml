@@ -19,6 +19,7 @@ Item {
     onSourceChanged: {
         var xhr = new XMLHttpRequest;
         xhr.open("GET", source);
+        console.log(source);
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE)
                 json = xhr.responseText;

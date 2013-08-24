@@ -7,9 +7,11 @@ Page {
     property string login
     property var userObject
 
-    Component.onCompleted: {
+    onLoginChanged: {
         var xhr = new XMLHttpRequest;
-        xhr.open("GET", "https://api.github.com/users/" + login);
+        var requesting = "https://api.github.com/users/" + login + (oAuthTokenGetter === null || oAuthTokenGetter.token === "" ? "" : oAuthTokenGetter.firstGet)
+        console.log(requesting)
+        xhr.open("GET", requesting);
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
                 userObject = JSON.parse(xhr.responseText)
@@ -21,12 +23,14 @@ Page {
     onUserObjectChanged: {
         userThumb.avatar_url = userObject.avatar_url
         userThumb.name = userObject.name
+        userThumb.login = userObject.login
     }
 
     Flickable {
         width: parent.width
         height: parent.height
         contentWidth: width
+        contentHeight: column.childrenRect.height
         flickableDirection: Flickable.VerticalFlick
 
         Column {
@@ -40,38 +44,28 @@ Page {
                     id: userThumb
                     login: page.login
                     progression: false
-
-            //        color: white
-
-                    //anchors.top: parent.top
                     anchors.fill: parent
-    //                anchors.left: parent.left
-    //                height: Math.min(mainView.height, mainView.width) / 3
-    //                width: column.width
                 }
             }
 
 
             ListItem.Standard {
                 id: bio
-                //anchors.top: userThumbListItem.bottom
                 text: visible ? userObject.bio : ""
-                visible: userObject !== undefined && userObject.bio !== null
+                visible: userObject !== undefined && userObject.bio !== undefined && userObject.bio !== null
             }
 
             ListItem.Standard {
                 id: email
-                //anchors.top: bio.bottom
                 text: visible ? (userObject.email + (userObject.hireable ? " (hireable)" : "")) : ""
                 visible: userObject !== undefined && userObject.email !== null
 
-                // TODO add onClicked here, to send a mail
+                // TODO add onClicked here, to send a mail (friends api?)
                 progression: true
             }
 
             ListItem.Standard {
                 id: blog
-                //anchors.top: email.bottom
                 text: visible ? userObject.blog : ""
                 visible: userObject !== undefined && userObject.blog !== null
 
@@ -81,14 +75,14 @@ Page {
 
             ListItem.Standard {
                 id: location
-                //anchors.top: blog.bottom
                 text: visible ? userObject.location : ""
                 visible: userObject !== undefined && userObject.location !== null
+
+                // add openstreetmap - geonames.org ?
             }
 
             ListItem.Standard {
                 id: company
-                //anchors.top: location.bottom
                 text: visible ? userObject.company : ""
                 visible: userObject !== undefined && userObject.company !== null
 
@@ -98,27 +92,24 @@ Page {
 
             ListItem.Standard {
                 id: repos
-                //anchors.top: company.bottom
                 text: visible ? userObject.public_repos + i18n.tr(" public repos") : ""
                 visible: userObject !== undefined && userObject.public_repos !== null
 
-                // TODO add onClicked here, to view public repos
                 progression: true
+                onClicked: pageStack.push(repoListPage, {"url": userObject.repos_url})
             }
 
             ListItem.Standard {
                 id: following
-                //anchors.top: repos.bottom
                 text: userObject !== undefined ? i18n.tr("following ") + userObject.following + i18n.tr(" users") : ""
                 visible: userObject !== undefined && userObject.following !== 0
 
                 progression: true
-                onClicked: pageStack.push(userListPage, {"url": "https://api.github.com/users/" + login + "/following"})
+                onClicked: pageStack.push(userListPage, {"url": userObject.following_url.substring(0, userObject.following_url.length - 13)})
             }
 
             ListItem.Standard {
                 id: followers
-                //anchors.top: following.bottom
                 text: visible ? userObject.followers + i18n.tr(" followers") : ""
                 visible: userObject !== undefined && userObject.followers !== 0
 
@@ -128,7 +119,6 @@ Page {
 
             ListItem.Standard {
                 id: gists
-                //anchors.top: followers.bottom
                 text: visible ? userObject.public_gists + i18n.tr(" public gists") : ""
                 visible: userObject !== undefined && userObject.public_gists !== 0
 
@@ -138,17 +128,25 @@ Page {
 
             ListItem.Standard {
                 id: updated
-                //anchors.top: gists.bottom
                 text: visible ? i18n.tr("Last updated: ") + new Date(userObject.updated_at).toLocaleDateString(Qt.locale()) : ""
                 visible: userObject !== undefined
             }
 
             ListItem.Standard {
                 id: created
-                //anchors.top: updated.bottom
                 text: visible ? i18n.tr("Created on: ") + new Date(userObject.created_at).toLocaleDateString(Qt.locale()) : ""
                 visible: userObject !== undefined
             }
         }
+    }
+
+    tools: ToolbarItems {
+        LoginToolbarButton {
+            visible: oAuthTokenGetter.token === ""
+        }
+        MeToolbarButton {
+            visible: oAuthTokenGetter.token !== ""
+        }
+        DebugActionToolbarButton {}
     }
 }

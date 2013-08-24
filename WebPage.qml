@@ -6,12 +6,9 @@ import QtWebKit 3.0
 Page {
     id: webPage
     property string url
-    onUrlChanged: console.log(url)
 
     WebView {
         anchors.fill: parent
         url: (webPage.url.substring(0, 4) === "http" ? "" : "http://") + webPage.url
     }
-
-
 }

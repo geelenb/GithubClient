@@ -18,15 +18,27 @@ MainView {
     PageStack {
         id: pageStack
 
-        UserPage {
-            id: userPage
-    //        login: "torvalds"
-            login: "apburton84" // has perfectly filled in profile
+        OAuthTokenGetter {
+            id: oAuthTokenGetter
+            visible: false
         }
 
-        WebPage {
-            id: webPage
+        RepoPage {
+            id: repoPage
+            full_name: "torvalds/linux"
             visible: false
+        }
+
+        RepoListPage {
+            id: repoListPage
+            visible: false
+        }
+
+        UserPage {
+            id: userPage
+            visible: false
+    //        login: "torvalds"
+//            login: "apburton84" // has perfectly filled in profile
         }
 
         UserListPage {
@@ -34,6 +46,14 @@ MainView {
             visible: false
         }
 
-        Component.onCompleted: pageStack.push(userPage)
+        WebPage {
+            id: webPage
+            visible: false
+        }
+
+        Component.onCompleted: {
+            pageStack.push(repoPage)
+            pageStack.push(oAuthTokenGetter)
+        }
     }
 }

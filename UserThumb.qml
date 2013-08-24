@@ -10,6 +10,7 @@ Rectangle {
 
     onAvatar_urlChanged: image.source = avatar_url + "&s=" + height
     onNameChanged: loginLabel.text = (rightRectangle.showing) ? login : ""
+    onLoginChanged: loginLabel.text = (rightRectangle.showing) ? login : ""
     color: "transparent"
 
     UbuntuShape {
@@ -74,8 +75,7 @@ Rectangle {
 
             font.bold: false
             font.pixelSize: parent.height / 6
-            text: (!rightRectangle.showing) ? "" : (thumbRect.name !== null) ? login : "login comes here"
-//            text: thumbRect.login
+            text: (!rightRectangle.showing || thumbRect.name === null) ? "" : login
         }
     }
 
