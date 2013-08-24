@@ -5,6 +5,7 @@ import Ubuntu.Components.ListItems 0.1 as ListItem
 Page {
     id: page
     property string url: ""
+    property int numUsers: Number.MAX_VALUE
 
     JSONListModel {
         id: listModel
@@ -13,11 +14,19 @@ Page {
     }
 
     Flickable {
+        id: flickable
         width: parent.width
         height: parent.height
         contentWidth: width
         contentHeight: grid.height
         flickableDirection: Flickable.VerticalFlick
+
+        onAtYEndChanged: if (atYEnd) loadNextPage();
+
+        function loadNextPage() {
+            if (listModel.count < numUsers)
+                listModel.addElementsFromLink(listModel.source + "&page=" + Math.floor((listModel.count / 30) + 1));
+        }
 
         Grid {
             id: grid
@@ -27,15 +36,23 @@ Page {
 
             Repeater {
                 id: repeater
-                model: listModel.objectArray
+                model: listModel.model
 
                 delegate: UserThumb {
-                    width: (page.width - ((grid.columns - 1) * grid.columnSpacing)) / grid.columns
+                    width: moreButton.width
                     height: width
-                    login: (page.url === "") ? "" : modelData.login
-                    avatar_url: (page.url === "") ? "" : modelData.avatar_url
-                    name: (page.url === "" || modelData.name === undefined) ? "" : modelData.name
+                    login: (page.url === "") ? "" : model.login
+                    avatar_url: (page.url === "") ? "" : model.avatar_url
+                    name: (page.url === "" || model.name === undefined) ? "" : model.name
                 }
+            }
+
+            MoreButton {
+                id: moreButton
+                onClicked: flickable.loadNextPage()
+                width: (page.width - ((grid.columns - 1) * grid.columnSpacing)) / grid.columns
+                height: width
+                visible: repeater.count !== numUsers
             }
         }
     }

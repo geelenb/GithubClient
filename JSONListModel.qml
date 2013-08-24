@@ -27,6 +27,21 @@ Item {
         xhr.send();
     }
 
+    function addElementsFromLink(link) {
+        var xhr = new XMLHttpRequest;
+        xhr.open("GET", link);
+        console.log(link);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == XMLHttpRequest.DONE){
+                var newArray = parseJSONString(xhr.responseText, query);
+                for (var key in newArray) {
+                    jsonModel.append(newArray[key]);
+                }
+            }
+        }
+        xhr.send();
+    }
+
     onJsonChanged: updateJSONModel()
     onQueryChanged: updateJSONModel()
 
@@ -38,16 +53,15 @@ Item {
 
         objectArray = parseJSONString(json, query);
         for ( var key in objectArray ) {
-            var jo = objectArray[key];
-            jsonModel.append( jo );
+            jsonModel.append(objectArray[key]);
         }
     }
 
     function parseJSONString(jsonString, jsonPathQuery) {
-        var objectArray = JSON.parse(jsonString);
+        var result = JSON.parse(jsonString);
         if ( jsonPathQuery !== "" )
-            objectArray = JSONPath.jsonPath(objectArray, jsonPathQuery);
+            result = JSONPath.jsonPath(result, jsonPathQuery);
 
-        return objectArray;
+        return result;
     }
 }

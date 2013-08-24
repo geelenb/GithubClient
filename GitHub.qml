@@ -25,7 +25,6 @@ MainView {
 
         RepoPage {
             id: repoPage
-            full_name: "torvalds/linux"
             visible: false
         }
 
@@ -52,7 +51,6 @@ MainView {
         }
 
         Component.onCompleted: {
-            pageStack.push(repoPage)
             pageStack.push(oAuthTokenGetter)
         }
     }

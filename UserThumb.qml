@@ -8,10 +8,13 @@ Rectangle {
     property string name
     property bool progression: true
 
-    onAvatar_urlChanged: image.source = avatar_url + "&s=" + height
+    onAvatar_urlChanged: image.source = avatar_url + "?s=" + Math.round(height)
+//    onAvatar_urlChanged: image.source = avatar_url + "&s=" + Math.round(height)
     onNameChanged: loginLabel.text = (rightRectangle.showing) ? login : ""
     onLoginChanged: loginLabel.text = (rightRectangle.showing) ? login : ""
     color: "transparent"
+    height: units.gu(16)
+    width: height
 
     UbuntuShape {
         id: ubuntuShape

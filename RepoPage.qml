@@ -6,8 +6,8 @@ Page {
     id: page
     property string full_name
     property var repoObject
+//    style: Theme.createStyleComponent("MyPalletteValues.qml", page)
 
-//    Component.onCompleted: {
     onFull_nameChanged: {
         var xhr = new XMLHttpRequest;
         var requesting = "https://api.github.com/repos/" + full_name + (oAuthTokenGetter === null || oAuthTokenGetter.token === "" ? "" : oAuthTokenGetter.firstGet)
@@ -86,7 +86,8 @@ Page {
                 text: i18n.tr("Collaborators")
                 visible: repoObject !== undefined
                 progression: true
-                onClicked: pageStack.push(userListPage, {"url": repoObject.collaborators_url.substring(0, repoObject.collaborators_url.length - 15)})
+                onClicked: pageStack.push(userListPage, {"url": repoObject.collaborators_url.substring(0, repoObject.collaborators_url.length - 15),
+                                                         "title": i18n.tr("Collaborators")})
             }
 
             ListItem.Standard {
@@ -94,7 +95,8 @@ Page {
                 text: i18n.tr("Contributors")
                 visible: repoObject !== undefined
                 progression: true
-                onClicked: pageStack.push(userListPage, {"url": repoObject.contributors_url})
+                onClicked: pageStack.push(userListPage, {"url": repoObject.contributors_url,
+                                              "title": i18n.tr("Contributors")})
             }
 
             ListItem.Standard {
@@ -102,7 +104,8 @@ Page {
                 text: visible ? (i18n.tr("Stargazers: ") + repoObject.watchers) : ""
                 visible: repoObject !== undefined && repoObject.watchers !== undefined
                 progression: true
-                onClicked: pageStack.push(userListPage, {"url": repoObject.stargazers_url})
+                onClicked: pageStack.push(userListPage, {"url": repoObject.stargazers_url,
+                                              "title": i18n.tr("Stargazers")})
             }
 
             ListItem.Standard {
@@ -110,7 +113,8 @@ Page {
                 text: i18n.tr("Subscribers")
                 visible: repoObject !== undefined && repoObject.subscribers_url !== undefined
                 progression: true
-                onClicked: pageStack.push(userListPage, {"url": repoObject.subscribers_url})
+                onClicked: pageStack.push(userListPage, {"url": repoObject.subscribers_url,
+                                              "title": i18n.tr("Subscribers")})
             }
 
             ListItem.Standard {
@@ -120,6 +124,7 @@ Page {
                 progression: true
                 // TODO make issueListPage
 //                onClicked: pageStack.push(issueListPage, {"url": repoObject.issues_url.SUBSTRING})
+                // dont forget issues as title
             }
 
             ListItem.Standard {
@@ -127,7 +132,9 @@ Page {
                 text: visible ? i18n.tr("Forks: ") + repoObject.forks : ""
                 visible: repoObject !== undefined && repoObject.forks !== undefined
                 progression: true
-                onClicked: pageStack.push(repoListPage, {"url": repoObject.forks_url})
+                onClicked: pageStack.push(repoListPage, {"url": repoObject.forks_url,
+                                                         "numRepos": repoObject.forks,
+                                                         "title": i18n.tr("Repos")})
             }
 
             ListItem.Standard {

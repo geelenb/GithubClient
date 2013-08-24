@@ -35,7 +35,8 @@ Page {
                         webPage.token = xhr.responseText.substring(13, 53)
                         // move this to a database?
                         console.log("Oauth token is now : " + webPage.token)
-                        pageStack.pop();
+//                        pageStack.push(repoPage, {"full_name": "brambram/GithubClient"});
+                        pageStack.push(repoPage, {"full_name": "torvalds/linux"});
                     }
                 }
                 xhr.send();

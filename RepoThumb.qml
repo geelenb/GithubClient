@@ -18,15 +18,14 @@ Rectangle {
     color: "transparent"
 
     width: parent.width
-    height: Math.max(repoRectangle.height, userThumb.height)
+    height: userThumb.height
 
     Rectangle {
         id: repoRectangle
         anchors.top: parent.top
         anchors.right: userThumb.left
+        anchors.bottom: parent.bottom
         anchors.left: parent.left
-//        anchors.bottom: descriptionLabel.bottom
-        height: Math.max(units.gu(16), nameLabel.contentHeight + descriptionLabel.contentHeight)
 
         color: "transparent"
 
@@ -71,7 +70,5 @@ Rectangle {
 
         anchors.top: parent.top
         anchors.right: parent.right
-        width: Math.min(parent.width / 3, units.gu(16))
-        height: width
     }
 }

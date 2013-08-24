@@ -88,15 +88,18 @@ Page {
 
                 // TODO add onClicked here, to view organizations
                 progression: true
+                // dont forget title
             }
 
             ListItem.Standard {
                 id: repos
-                text: visible ? userObject.public_repos + i18n.tr(" public repos") : ""
+                text: visible ? (userObject.public_repos + (userObject.total_private_repos === undefined ? 0 : userObject.total_private_repos)) + i18n.tr(" repos") : ""
                 visible: userObject !== undefined && userObject.public_repos !== null
 
                 progression: true
-                onClicked: pageStack.push(repoListPage, {"url": userObject.repos_url})
+                onClicked: pageStack.push(repoListPage, {"url": userObject.repos_url,
+                                                         "numRepos": (userObject.public_repos + userObject.total_private_repos),
+                                                         "title": i18n.tr("Repos")})
             }
 
             ListItem.Standard {
@@ -105,7 +108,8 @@ Page {
                 visible: userObject !== undefined && userObject.following !== 0
 
                 progression: true
-                onClicked: pageStack.push(userListPage, {"url": userObject.following_url.substring(0, userObject.following_url.length - 13)})
+                onClicked: pageStack.push(userListPage, {"url": userObject.following_url.substring(0, userObject.following_url.length - 13),
+                                                         "title": i18n.tr("Following")})
             }
 
             ListItem.Standard {
@@ -114,7 +118,8 @@ Page {
                 visible: userObject !== undefined && userObject.followers !== 0
 
                 progression: true
-                onClicked: pageStack.push(userListPage, {"url": userObject.followers_url})
+                onClicked: pageStack.push(userListPage, {"url": userObject.followers_url,
+                                                         "title": i18n.tr("Followers")})
             }
 
             ListItem.Standard {
@@ -122,8 +127,9 @@ Page {
                 text: visible ? userObject.public_gists + i18n.tr(" public gists") : ""
                 visible: userObject !== undefined && userObject.public_gists !== 0
 
-                // TODO add onClicked here, to view following
+                // TODO add onClicked here, to view gists
                 progression: userObject !== undefined && userObject.public_gists !== 0
+                // dont forget title
             }
 
             ListItem.Standard {
