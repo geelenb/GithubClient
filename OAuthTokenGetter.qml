@@ -36,7 +36,6 @@ Page {
 
                 var xhr = new XMLHttpRequest;
                 var requesting = access_token_url + "&code=" + code;
-                console.log(requesting)
                 xhr.open("POST", requesting);
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === XMLHttpRequest.DONE) {

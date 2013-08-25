@@ -10,7 +10,6 @@ ToolbarButton {
         onTriggered: {
             var xhr = new XMLHttpRequest;
             var requesting = "https://api.github.com/user?access_token=" + oAuthTokenGetter.token
-            console.log(requesting);
             xhr.open("GET", requesting);
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === XMLHttpRequest.DONE) {

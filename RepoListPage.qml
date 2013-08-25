@@ -51,11 +51,6 @@ Page {
                 width: parent.width
                 height: units.gu(16)
                 visible: listModel.count < numRepos
-                onVisibleChanged: {
-                    console.log("listModel.count: " + listModel.count)
-                    console.log("numrepos: " + numRepos)
-                    console.log("visible: " + visible)
-                }
             }
         }
     }

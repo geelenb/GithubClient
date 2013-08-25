@@ -19,7 +19,6 @@ Item {
     onSourceChanged: {
         var xhr = new XMLHttpRequest;
         xhr.open("GET", source);
-        console.log(source);
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE)
                 json = xhr.responseText;
@@ -30,7 +29,6 @@ Item {
     function addElementsFromLink(link) {
         var xhr = new XMLHttpRequest;
         xhr.open("GET", link);
-        console.log(link);
         xhr.onreadystatechange = function() {
             if (xhr.readyState == XMLHttpRequest.DONE){
                 var newArray = parseJSONString(xhr.responseText, query);

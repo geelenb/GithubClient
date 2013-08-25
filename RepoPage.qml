@@ -11,7 +11,6 @@ Page {
     onFull_nameChanged: {
         var xhr = new XMLHttpRequest;
         var requesting = "https://api.github.com/repos/" + full_name + (oAuthTokenGetter === null || oAuthTokenGetter.token === "" ? "" : oAuthTokenGetter.firstGet)
-        console.log(requesting)
         xhr.open("GET", requesting);
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -56,11 +55,11 @@ Page {
 
             ListItem.Standard {
                 id: language
-                text: visible ? i18n.tr("language: ") + repoObject.language : ""
+                text: visible ? i18n.tr("Language: ") + repoObject.language : ""
                 visible: repoObject !== undefined && repoObject.language !== undefined && repoObject.language !== null
                 progression: true
                 // TODO: make languageListPage
-//                onClicked: pageStack.push(webPage, {"url": repoObject.homePage})
+                onClicked: pageStack.push(languageListPage, {"url": repoObject.languages_url})
             }
 
             ListItem.Standard {

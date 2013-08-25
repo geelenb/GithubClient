@@ -21,22 +21,34 @@ Rectangle {
         width: height
 
         radius: "medium"
-        image: Image {
+        Image {
             id: image
+            width: ubuntuShape.width / 2
+            height: ubuntuShape.height / 2
+            anchors.centerIn: ubuntuShape
             // TODO add more file types
             source: Qt.resolvedUrl((contentObject.type === "dir") ? "icons/folder.svg" : "icons/file.svg")
         }
 
-        // maybe add another label that shows the file extension? centerin: parent, bigger size
+        Label {
+            anchors.centerIn: parent
+
+            font.bold: true
+            font.pixelSize: parent.height / 5
+
+            text: (contentObject.type === "dir"
+                   || contentObject.name.lastIndexOf(".") === -1
+                   || contentObject.name.lastIndexOf(".") < contentObject.name.length - 5) ?
+                      "" :
+                      contentObject.name.substring(contentObject.name.lastIndexOf(".") + 1)
+        }
+
         Label {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
 
             font.bold: true
             font.pixelSize: parent.height / 7
-            style: Text.Outline
-            color: "white"
-            styleColor: "black"
 
             text: (inColumn) ? "" : contentObject.name
         }

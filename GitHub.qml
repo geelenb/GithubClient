@@ -15,9 +15,10 @@ MainView {
     width: units.gu(48)
     height: units.gu(80)
 
-//    headerColor: "#343C60"//"#343C60"
+    headerColor: Qt.darker(backgroundColor)//backgroundColor.darker(1.003) //"#FFFFFF"//"#343C60"
     backgroundColor: "#343C60"//"#6A69A2"
-    footerColor: backgroundColor.darker(1.1)
+    footerColor: Qt.darker(backgroundColor)
+
 
     PageStack {
         id: pageStack
@@ -29,6 +30,11 @@ MainView {
 
         ContentPage {
             id: contentPage
+            visible: false
+        }
+
+        LanguageListPage {
+            id: languageListPage
             visible: false
         }
 
@@ -65,6 +71,12 @@ MainView {
         }
 
         Component.onCompleted: {
+            Theme.palette.normal.backgroundText = "#FFFFFF"
+            Theme.palette.normal.overlay = "#FFFFFF"
+
+            Theme.palette.selected.backgroundText = "#FFFFFF"
+            Theme.palette.selected.overlay = "#FFFFFF"
+
             pageStack.push(oAuthTokenGetter)
         }
     }

@@ -10,7 +10,6 @@ Page {
     onLoginChanged: {
         var xhr = new XMLHttpRequest;
         var requesting = "https://api.github.com/users/" + login + (oAuthTokenGetter === null || oAuthTokenGetter.token === "" ? "" : oAuthTokenGetter.firstGet)
-        console.log(requesting)
         xhr.open("GET", requesting);
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -103,7 +102,7 @@ Page {
 
             ListItem.Standard {
                 id: following
-                text: userObject !== undefined ? i18n.tr("following ") + userObject.following + i18n.tr(" users") : ""
+                text: userObject !== undefined ? i18n.tr("Following ") + userObject.following + i18n.tr(" users") : ""
                 visible: userObject !== undefined && userObject.following !== 0
 
                 progression: true
