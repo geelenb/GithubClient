@@ -4,7 +4,6 @@ import Ubuntu.Components.ListItems 0.1 as ListItem
 
 Page {
     id: page
-    // title initialization permitted from caller
     property string url
     property int numRepos: Number.MAX_VALUE
 

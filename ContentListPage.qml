@@ -11,12 +11,11 @@ Page {
     property bool columnView: true
 
     onColumnViewChanged: {
-        grid.columns = columnView ? 1 : Math.floor(page.width / units.gu(12))
+//        grid.columns = columnView ? 1 : Math.floor(page.width / units.gu(12))
 
-        for (var i = 0; i < repeater.count; i++) {
-            repeater.itemAt(i).inColumn = columnView
-
-        }
+//        for (var i = 0; i < repeater.count; i++) {
+//            repeater.itemAt(i).inColumn = columnView
+//        }
     }
 
     function moveUp() {
@@ -43,6 +42,7 @@ Page {
         Grid {
             id: grid
             anchors.fill: parent
+            columns: 1
 
             Rectangle {
                 id: upRect
@@ -104,7 +104,7 @@ Page {
 
                 delegate: ContentThumb {
                     contentObject: model
-                    depth: page.depth
+                    folderDepth: page.depth
                 }
             }
         }
