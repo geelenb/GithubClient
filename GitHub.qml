@@ -15,8 +15,22 @@ MainView {
     width: units.gu(48)
     height: units.gu(80)
 
+//    headerColor: "#343C60"//"#343C60"
+    backgroundColor: "#343C60"//"#6A69A2"
+    footerColor: backgroundColor.darker(1.1)
+
     PageStack {
         id: pageStack
+
+        ContentListPage {
+            id: contentListPage
+            visible: false
+        }
+
+        ContentPage {
+            id: contentPage
+            visible: false
+        }
 
         OAuthTokenGetter {
             id: oAuthTokenGetter

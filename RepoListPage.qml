@@ -10,7 +10,7 @@ Page {
 
     JSONListModel {
         id: listModel
-        source: page.url + ((oAuthTokenGetter === null || oAuthTokenGetter.token === "") ? "" : oAuthTokenGetter.firstGet)
+        source: url + ((oAuthTokenGetter === null || oAuthTokenGetter.token === "") ? "" : oAuthTokenGetter.firstGet)
         query: "$[*]"
     }
 
@@ -22,7 +22,10 @@ Page {
         contentHeight: column.childrenRect.height
         flickableDirection: Flickable.VerticalFlick
 
-        onAtYEndChanged: if (atYEnd) loadNextPage();
+        onAtYEndChanged: {
+            if (atYEnd)
+                loadNextPage();
+        }
 
         function loadNextPage() {
             if (listModel.count < numRepos)
@@ -47,7 +50,12 @@ Page {
                 onClicked: flickable.loadNextPage()
                 width: parent.width
                 height: units.gu(16)
-                visible: repeater.count !== numRepos
+                visible: listModel.count < numRepos
+                onVisibleChanged: {
+                    console.log("listModel.count: " + listModel.count)
+                    console.log("numrepos: " + numRepos)
+                    console.log("visible: " + visible)
+                }
             }
         }
     }

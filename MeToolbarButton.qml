@@ -5,7 +5,7 @@ ToolbarButton {
     action: Action {
         id: resetButton
 
-        iconSource: "/usr/share/icons/ubuntu-mobile/actions/scalable/contact.svg"
+        iconSource: Qt.resolvedUrl("icons/contact.svg")
         text: i18n.tr("Me")
         onTriggered: {
             var xhr = new XMLHttpRequest;

@@ -5,6 +5,7 @@ import QtWebKit 3.0
 
 Page {
     id: webPage
+    title: "Log in on GitHub.com"
     property string url
 
     WebView {

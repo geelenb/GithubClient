@@ -5,11 +5,11 @@ import Ubuntu.Components.ListItems 0.1 as ListItem
 Page {
     id: page
     property string url: ""
-    property int numUsers: Number.MAX_VALUE
+    property int numUsers: 2000000000 // number.max value is bugged
 
     JSONListModel {
         id: listModel
-        source: page.url + ((oAuthTokenGetter === null || oAuthTokenGetter.token === "") ? "" : oAuthTokenGetter.firstGet)
+        source: url + ((oAuthTokenGetter === null || oAuthTokenGetter.token === "") ? "" : oAuthTokenGetter.firstGet)
         query: "$[*]"
     }
 

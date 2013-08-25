@@ -98,8 +98,7 @@ Page {
 
                 progression: true
                 onClicked: pageStack.push(repoListPage, {"url": userObject.repos_url,
-                                                         "numRepos": (userObject.public_repos + userObject.total_private_repos),
-                                                         "title": i18n.tr("Repos")})
+                                                         "numRepos": (userObject.public_repos + userObject.total_private_repos)})
             }
 
             ListItem.Standard {

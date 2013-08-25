@@ -6,7 +6,7 @@ ToolbarButton {
     action: Action {
         id: resetButton
 
-        iconSource: "/usr/share/icons/ubuntu-mobile/actions/scalable/favorite-selected.svg" //Qt.resolvedUrl("new.png")
+        iconSource: Qt.resolvedUrl("icons/star.svg")
         text: i18n.tr("Debug action!")
         onTriggered: {
             var url = "https://api.github.com/notifications?access_token=" + oAuthTokenGetter.token
