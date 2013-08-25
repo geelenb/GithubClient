@@ -14,9 +14,10 @@ Page {
         id: listModel
         source: (url === "") ? "" : url + oAuthTokenGetter.firstGet
         onDone: {
-            for (var i = 0; i < listModel.count; i++)
+            maxLang = 1;
+            for (var i = 0; i < listModel.count; i++) {
                 maxLang = Math.max(maxLang, Math.sqrt(listModel.model.get(i).value))
-
+            }
             repeater.update()
         }
     }

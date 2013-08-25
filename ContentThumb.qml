@@ -7,6 +7,7 @@ Rectangle {
     property var contentObject
     property bool progression: true
     property bool inColumn: true
+    property int depth
 
     color: "transparent"
 
@@ -82,9 +83,14 @@ Rectangle {
         onClicked: {
             if (contentObject.type === "file") {
                 if (progression)
-                    pageStack.push(contentPage, {"contentObject": contentObject})
+                    pageStack.push(contentPage, {
+                                       "contentObject": contentObject
+                                   })
             } else {
-                pageStack.push(contentListPage, {"url": contentObject.url})
+                pageStack.push(contentListPage, {
+                                   "url": contentObject.url,
+                                   "depth": depth + 1
+                               })
             }
         }
     }

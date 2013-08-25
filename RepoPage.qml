@@ -67,7 +67,10 @@ Page {
                 text: i18n.tr("Browse contents")
                 visible: repoObject !== undefined
                 progression: true
-                onClicked: pageStack.push(contentListPage, {"url": repoObject.contents_url.substring(0, repoObject.contents_url.length - 7)})
+                onClicked: pageStack.push(contentListPage, {
+                                              "url": repoObject.contents_url.substring(0, repoObject.contents_url.length - 8),
+                                              "depth": 0
+                                          })
             }
 
             ListItem.Standard {

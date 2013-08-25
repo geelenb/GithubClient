@@ -6,6 +6,7 @@ Page {
     id: page
     // title initialization permitted from caller
     property string url: ""
+    property int depth: 0
 
     property bool columnView: true
 
@@ -20,7 +21,8 @@ Page {
 
     function moveUp() {
         pageStack.push(contentListPage, {
-                           "url": url.substring(0, url.lastIndexOf("/"))
+                           "url": url.substring(0, url.lastIndexOf("/")),
+                           "depth": depth - 1
                        })
     }
 
@@ -45,7 +47,7 @@ Page {
             Rectangle {
                 id: upRect
                 color: "transparent"
-                visible: page.url.charAt(page.url.length - 1) === '/' // it's the root folder
+                visible: depth !== 0
 
                 height: units.gu(12)
                 width: parent.width
@@ -102,6 +104,7 @@ Page {
 
                 delegate: ContentThumb {
                     contentObject: model
+                    depth: page.depth
                 }
             }
         }
@@ -129,7 +132,7 @@ Page {
                 iconSource: Qt.resolvedUrl("icons/up.svg")
                 text: i18n.tr("Move folder up")
                 onTriggered: page.moveUp()
-                visible: page.url.charAt(page.url.length - 1) === '/' // it's the root folder
+                visible: depth !== 0
            }
         }
     }
