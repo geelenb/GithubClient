@@ -4,7 +4,6 @@ import Ubuntu.Components.ListItems 0.1 as ListItem
 
 Page {
     id: page
-    // title initialization permitted from caller
     property string url: ""
     property int depth: 0
 
@@ -31,9 +30,15 @@ Page {
         query: "$[*]"
     }
 
+    SideBar {
+        id: sideBar
+        expanded: page.width > units.gu(80)
+    }
+
     Flickable {
-        id: flickable
-        width: parent.width
+        anchors.right: parent.right
+        anchors.left: sideBar.right
+        anchors.bottom: parent.bottom
         height: parent.height
         contentWidth: width
         contentHeight: grid.childrenRect.height
@@ -111,28 +116,17 @@ Page {
     }
 
     tools: ToolbarItems {
-        LoginToolbarButton {
-            visible: oAuthTokenGetter.token === ""
-        }
-        MeToolbarButton {
-            visible: oAuthTokenGetter.token !== ""
-        }
-        ToolbarButton {
-            action: Action {
-                id: switchGridButton
+        MeToolbarButton {}
+        DebugActionToolbarButton {}
+        SideBarButton{visible: !sideBar.expanded}
 
-                iconSource: Qt.resolvedUrl("icons/keypad.svg")
-                text: i18n.tr("Switch view")
-                onTriggered: columnView = !columnView
-           }
-        }
         ToolbarButton {
             action: Action {
                 id: moveUpButton
                 iconSource: Qt.resolvedUrl("icons/up.svg")
                 text: i18n.tr("Move folder up")
                 onTriggered: page.moveUp()
-                visible: depth !== 0
+                enabled: depth !== 0
            }
         }
     }

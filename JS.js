@@ -94,3 +94,6 @@ function getLanguageColor(language) {
     // else
     return "#ffffff";
 }
+
+var lastSearch = ""
+

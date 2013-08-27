@@ -25,8 +25,15 @@ Page {
         userThumb.login = userObject.login
     }
 
+    SideBar {
+        id: sideBar
+        expanded: page.width > units.gu(80)
+    }
+
     Flickable {
-        width: parent.width
+        anchors.right: parent.right
+        anchors.left: sideBar.right
+        anchors.bottom: parent.bottom
         height: parent.height
         contentWidth: width
         contentHeight: column.childrenRect.height
@@ -44,6 +51,7 @@ Page {
                     login: page.login
                     progression: false
                     anchors.fill: parent
+                    showing: true
                 }
             }
 
@@ -145,12 +153,8 @@ Page {
     }
 
     tools: ToolbarItems {
-        LoginToolbarButton {
-            visible: oAuthTokenGetter.token === ""
-        }
-        MeToolbarButton {
-            visible: oAuthTokenGetter.token !== ""
-        }
+        MeToolbarButton {}
         DebugActionToolbarButton {}
+        SideBarButton{visible: !sideBar.expanded}
     }
 }

@@ -22,9 +22,15 @@ Page {
         }
     }
 
+    SideBar {
+        id: sideBar
+        expanded: page.width > units.gu(80)
+    }
+
     Flickable {
-        id: flickable
-        width: parent.width
+        anchors.right: parent.right
+        anchors.left: sideBar.right
+        anchors.bottom: parent.bottom
         height: parent.height
         contentWidth: width
         contentHeight: column.childrenRect.height
@@ -55,5 +61,11 @@ Page {
                 }
             }
         }
+    }
+
+    tools: ToolbarItems {
+        MeToolbarButton {}
+        DebugActionToolbarButton {}
+        SideBarButton{visible: !sideBar.expanded}
     }
 }

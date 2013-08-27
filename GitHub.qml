@@ -9,14 +9,13 @@ MainView {
     // Note! applicationName needs to match the .desktop filename
     applicationName: "GitHub"
     automaticOrientation: true
-    
-//    width: 480
-//    height: 800
-    width: units.gu(48)
+
+//    width: units.gu(48)
+    width: units.gu(120)
     height: units.gu(80)
 
-    headerColor: Qt.darker(backgroundColor)//backgroundColor.darker(1.003) //"#FFFFFF"//"#343C60"
-    backgroundColor: "#343C60"//"#6A69A2"
+    headerColor: Qt.darker(backgroundColor)
+    backgroundColor: "#343C60"
     footerColor: Qt.darker(backgroundColor)
 
 
@@ -53,6 +52,16 @@ MainView {
             visible: false
         }
 
+        SearchResultPage {
+            id: searchResultPage
+            visible: false
+        }
+
+        SideBarPage {
+            id: sidebarPage
+            visible: false
+        }
+
         UserPage {
             id: userPage
             visible: false
@@ -68,6 +77,10 @@ MainView {
         WebPage {
             id: webPage
             visible: false
+        }
+
+        SearchDialog {
+            id: searchDialog
         }
 
         Component.onCompleted: {

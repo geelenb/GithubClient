@@ -70,5 +70,6 @@ Rectangle {
 
         anchors.top: parent.top
         anchors.right: parent.right
+        showing: false
     }
 }

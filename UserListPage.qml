@@ -13,9 +13,15 @@ Page {
         query: "$[*]"
     }
 
+    SideBar {
+        id: sideBar
+        expanded: page.width > units.gu(80)
+    }
+
     Flickable {
-        id: flickable
-        width: parent.width
+        anchors.right: parent.right
+        anchors.left: sideBar.right
+        anchors.bottom: parent.bottom
         height: parent.height
         contentWidth: width
         contentHeight: grid.height
@@ -27,6 +33,8 @@ Page {
             if (listModel.count < numUsers)
                 listModel.addElementsFromLink(listModel.source + "&page=" + Math.floor((listModel.count / 30) + 1));
         }
+
+
 
         Grid {
             id: grid
@@ -44,6 +52,7 @@ Page {
                     login: (page.url === "") ? "" : model.login
                     avatar_url: (page.url === "") ? "" : model.avatar_url
                     name: (page.url === "" || model.name === undefined) ? "" : model.name
+                    showing: false
                 }
             }
 
@@ -55,5 +64,11 @@ Page {
                 visible: repeater.count !== numUsers
             }
         }
+    }
+
+    tools: ToolbarItems {
+        MeToolbarButton {}
+        DebugActionToolbarButton {}
+        SideBarButton{visible: !sideBar.expanded}
     }
 }

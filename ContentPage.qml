@@ -18,9 +18,15 @@ Page {
         xhr.send();
     }
 
+    SideBar {
+        id: sideBar
+        expanded: page.width > units.gu(80)
+    }
+
     Flickable {
-        id: flickable
-        width: parent.width
+        anchors.right: parent.right
+        anchors.left: sideBar.right
+        anchors.bottom: parent.bottom
         height: parent.height
         contentWidth: label.contentWidth
         contentHeight: label.contentHeight
@@ -43,7 +49,7 @@ Page {
                 iconSource: Qt.resolvedUrl("icons/zoomout.svg")
                 text: i18n.tr("Zoom out")
                 onTriggered: label.fontSize--
-                visible: label.fontSize >= 2
+                enabled: label.fontSize >= 2
            }
         }
         ToolbarButton {
@@ -55,5 +61,9 @@ Page {
                 onTriggered: label.fontSize++
            }
         }
+
+        MeToolbarButton {}
+        DebugActionToolbarButton {}
+        SideBarButton{visible: !sideBar.expanded}
     }
 }

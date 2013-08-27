@@ -8,6 +8,7 @@ Rectangle {
     property bool progression: true
     property bool inColumn: true
     property int folderDepth
+    property string repoName: ""
 
     color: "transparent"
 
@@ -66,6 +67,19 @@ Rectangle {
 
         Label {
             id: nameLabel
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+
+            width: parent.width
+            wrapMode: Text.Wrap
+
+            font.bold: true
+            font.pixelSize: parent.height / 4
+            text: inColumn ? repoName : ""
+        }
+
+        Label {
+            id: repoLabel
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
 

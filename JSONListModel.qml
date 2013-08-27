@@ -20,8 +20,9 @@ Item {
         var xhr = new XMLHttpRequest;
         xhr.open("GET", source);
         xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE)
+            if (xhr.readyState === XMLHttpRequest.DONE) {
                 json = xhr.responseText;
+            }
         }
         xhr.send();
     }
@@ -30,7 +31,7 @@ Item {
         var xhr = new XMLHttpRequest;
         xhr.open("GET", link);
         xhr.onreadystatechange = function() {
-            if (xhr.readyState == XMLHttpRequest.DONE){
+            if (xhr.readyState === XMLHttpRequest.DONE){
                 var newArray = parseJSONString(xhr.responseText, query);
                 for (var key in newArray) {
                     jsonModel.append(newArray[key]);
